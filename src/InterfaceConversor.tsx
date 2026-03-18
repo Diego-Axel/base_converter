@@ -9,7 +9,8 @@ export default function InterfaceConversor() {
       {/* Cabeçalho com logo e menu */}
       <header id="cabecalho">
         <div id="logo-nome">
-          <span>logo 1</span>
+          {/* Logo da aplicação */}
+          <img src="/bitra_logo.svg" alt="Logo Bitra" id="logo-app" style={{ width: 48, height: 48, marginBottom: 4 }} />
           <span id="nome-app">bitra</span>
         </div>
         <div id="menu-hamburguer" aria-label="Menu">
