@@ -1,0 +1,155 @@
+/* Este arquivo contém os estilos principais para a interface mobile do conversor de bases.
+Cores principais: #F7F7FF (Ghost White), #27187E (Indigo Ink) */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #F7F7FF;
+  min-height: 100vh;
+}
+
+#container-principal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #F7F7FF;
+}
+
+#cabecalho {
+  background: #27187E;
+  color: #F7F7FF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 8px 20px;
+  height: 64px;
+}
+
+#logo-nome {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#logo-nome span {
+  font-size: 10px;
+  opacity: 0.7;
+  margin-bottom: 2px;
+}
+
+#nome-app {
+  font-family: 'Orbitron', 'Inter', Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+#menu-hamburguer {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#menu-hamburguer span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: #F7F7FF;
+  margin: 3px 0;
+  border-radius: 2px;
+}
+
+#conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 8px 0 8px;
+}
+
+#cartao-conversor {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(39, 24, 126, 0.08);
+  border: 1.5px solid #E0E0F0;
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.linha-campos {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.campo-label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.campo-label label {
+  font-size: 0.95rem;
+  color: #27187E;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.campo-label input, .campo-label select {
+  padding: 8px 10px;
+  border: 1.5px solid #E0E0F0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #F7F7FF;
+  color: #27187E;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.campo-label input:focus, .campo-label select:focus {
+  border: 1.5px solid #27187E;
+}
+
+#botao-converter {
+  margin-top: 8px;
+  width: 100%;
+  background: #27187E;
+  color: #F7F7FF;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: 1.15rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#botao-converter:active {
+  background: #1a125a;
+}
+
+#rodape {
+  background: #27187E;
+  height: 32px;
+  width: 100vw;
+  border-radius: 0 0 12px 12px;
+}
+
+@media (min-width: 600px) {
+  #cartao-conversor {
+    max-width: 400px;
+  }
+}
