@@ -1,73 +1,18 @@
-# React + TypeScript + Vite
+# Bitra
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bitra é uma aplicação web voltada para a conversão entre bases numéricas, variando de 2 a 36. Além de realizar conversões, a ferramenta permite acompanhar detalhadamente cada etapa do processo, mostrando como o número é transformado de uma base para outra. Isso inclui a decomposição do valor, o uso de divisões sucessivas, agrupamentos e a exibição dos resultados intermediários, tornando o processo mais claro, verificável e fácil de compreender.
 
-Currently, two official plugins are available:
+## Por que “Bitra”?
+O nome surge da junção de dois conceitos: bit, a menor unidade de informação na computação, e ra, uma referência a radix, que representa a base de um sistema numérico. A combinação expressa a essência da aplicação, conectando diretamente a ideia de representação digital com sistemas de numeração.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Finalidade
+O projeto foi idealizado com o objetivo de unir didática e funcionalidade em uma única ferramenta. Embora existam diversas aplicações capazes de converter números entre bases, a maioria apresenta apenas o resultado final. O Bitra se diferencia ao expor o processo completo, permitindo não apenas usar a ferramenta, mas também entender o raciocínio por trás de cada conversão.
 
-## React Compiler
+## Público
+Pensado principalmente para estudantes e professores, o Bitra busca facilitar o aprendizado dos sistemas de numeração. Para estudantes, oferece um meio de estudar com mais autonomia e compreensão. Para professores, funciona como um recurso visual que auxilia na explicação de conceitos em sala de aula, tornando o ensino mais intuitivo e interativo.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+Desenvolvido no âmbito da  *UFRN* | *DCT - Departamento de Computação e Tecnologia* | *CERES*
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
