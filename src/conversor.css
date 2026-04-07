@@ -24,6 +24,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-height: 800px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .secao-binario {
@@ -109,6 +112,108 @@
   letter-spacing: 1px;
   text-align: center;
   color: #27187E;
+}
+
+/* Estilos para os passos da conversão */
+.container-passos {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1.5px solid #E0E0F0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.container-passos h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #27187E;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.passo {
+  background: #F7F7FF;
+  border-left: 4px solid #27187E;
+  padding: 14px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.titulo-passo {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #27187E;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.descricao-passo {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.grid-valores-passo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #E0E0F0;
+}
+
+.valor-passo {
+  background: #27187E;
+  color: #F7F7FF;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+}
+
+.grid-bits-passo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #E0E0F0;
+}
+
+.bit-passo {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 2px solid;
+}
+
+.operacao-passo {
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #E0E0F0;
+  font-size: 0.85rem;
+  color: #333;
+  font-family: 'Courier New', monospace;
+  overflow-x: auto;
+}
+
+.operacao-passo p {
+  margin: 0;
+  word-break: break-word;
 }
 
 /* Responsividade para telas maiores */

@@ -4,10 +4,20 @@ import React, { useState } from 'react';
 import './estilos-principais.css';
 import './conversor.css';
 
+interface Passo {
+  titulo: string;
+  descricao: string;
+  valores?: string[];
+  binario?: string;
+  operacao?: string;
+}
+
 interface ResultadoConversao {
   valor: string;
   bits: string[];
   erro: string;
+  passos?: Passo[];
+  numeroDecimal?: number;
 }
 
 export default function InterfaceConversor() {
@@ -70,6 +80,81 @@ export default function InterfaceConversor() {
     return binario.padStart(tamanho, '0');
   };
 
+  // Função para gerar os passos da conversão
+  const gerarPassos = (valor: string, baseInicial: number, baseAlvo: number): Passo[] => {
+    const passos: Passo[] = [];
+    const decimal = paraDecimal(valor, baseInicial);
+
+    // Passo 1: Converter para decimal (se não estiver já)
+    if (baseInicial !== 10) {
+      try {
+        const detalhes = Array.from(valor)
+          .reverse()
+          .map((dig, idx) => {
+            const potencia = Math.pow(baseInicial, idx);
+            const valDig = parseInt(dig, baseInicial);
+            return `${valDig} × ${baseInicial}^${idx}`;
+          })
+          .join(' + ');
+
+        const passoDecimal: Passo = {
+          titulo: `Passo 1: Converter de base ${baseInicial} para decimal`,
+          descricao: `Número em base ${baseInicial}:`,
+          valores: valor.split(''),
+          operacao: `${detalhes} = ${decimal}`
+        };
+        passos.push(passoDecimal);
+      } catch (err) {
+        console.error('Erro no passo 1:', err);
+      }
+    } else {
+      passos.push({
+        titulo: 'Número inicial',
+        descricao: 'O número já está em base 10',
+        valores: valor.split('')
+      });
+    }
+
+    // Passo 2: Converter de decimal para base alvo
+    if (baseAlvo !== 10) {
+      try {
+        const divisoes: string[] = [];
+        let temp = decimal;
+        
+        while (temp > 0) {
+          const resto = temp % baseAlvo;
+          const quociente = Math.floor(temp / baseAlvo);
+          divisoes.push(`${temp} ÷ ${baseAlvo} = ${quociente} (resto ${resto})`);
+          temp = quociente;
+        }
+
+        const passoFinal: Passo = {
+          titulo: `Passo 2: Converter de decimal para base ${baseAlvo}`,
+          descricao: `Dividir ${decimal} sucessivamente por ${baseAlvo}:`,
+          operacao: divisoes.join(' → ')
+        };
+        passos.push(passoFinal);
+      } catch (err) {
+        console.error('Erro no passo 2:', err);
+      }
+    }
+
+    // Passo 3: Representação em binário
+    try {
+      const binario = obterBinarioPadded(decimal);
+      passos.push({
+        titulo: 'Representação em Binário',
+        descricao: 'Forma binária com padding de múltiplo de 4:',
+        binario: binario,
+        valores: binario.split('')
+      });
+    } catch (err) {
+      console.error('Erro no passo 3:', err);
+    }
+
+    return passos;
+  };
+
   // Função para converter para array de bits com cores
   const obterBitsColoridos = (valor: string, base: number): string[] => {
     const decimal = paraDecimal(valor, base);
@@ -80,6 +165,8 @@ export default function InterfaceConversor() {
   const handleConverter = () => {
     const baseInicialNum = parseInt(baseInicial);
     const baseAlvoNum = parseInt(baseAlvo);
+
+    console.log('Convertendo:', numeroInicial, 'de base', baseInicialNum, 'para', baseAlvoNum);
 
     // Validar entrada
     if (numeroInicial.trim() === '') {
@@ -97,16 +184,29 @@ export default function InterfaceConversor() {
     }
 
     try {
+      console.log('Iniciando conversão...');
       const decimal = paraDecimal(numeroInicial.trim(), baseInicialNum);
+      console.log('Decimal:', decimal);
+      
       const resultadoConvertido = deDecimal(decimal, baseAlvoNum);
+      console.log('Resultado convertido:', resultadoConvertido);
+      
       const bits = obterBitsColoridos(numeroInicial.trim(), baseInicialNum);
+      console.log('Bits:', bits);
+      
+      const passos = gerarPassos(numeroInicial.trim(), baseInicialNum, baseAlvoNum);
+      console.log('Passos gerados:', passos);
 
       setResultado({
         valor: resultadoConvertido,
         bits: bits,
-        erro: ''
+        erro: '',
+        passos: passos,
+        numeroDecimal: decimal
       });
+      console.log('Resultado definido com sucesso');
     } catch (err) {
+      console.error('Erro ao converter:', err);
       setResultado({
         valor: '',
         bits: [],
@@ -236,6 +336,45 @@ export default function InterfaceConversor() {
                   <div className="coluna-tabela valor">{resultado.bits.join('')}</div>
                 </div>
               </div>
+
+              {/* Passos da conversão */}
+              {resultado.passos && resultado.passos.length > 0 && (
+                <div className="container-passos">
+                  <h3>Passos da conversão</h3>
+                  {resultado.passos.map((passo, idxPasso) => (
+                    <div key={idxPasso} className="passo">
+                      <h4 className="titulo-passo">{passo.titulo}</h4>
+                      <p className="descricao-passo">{passo.descricao}</p>
+                      
+                      {passo.valores && (
+                        <div className="grid-valores-passo">
+                          {passo.valores.map((valor, idx) => (
+                            <div key={idx} className="valor-passo">
+                              {valor}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {passo.binario && (
+                        <div className="grid-bits-passo">
+                          {passo.binario.split('').map((bit, idx) => (
+                            <div key={idx} className={`bit bit-passo bit-${bit}`}>
+                              {bit}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {passo.operacao && (
+                        <div className="operacao-passo">
+                          <p><strong>Cálculo:</strong> {passo.operacao}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </section>
